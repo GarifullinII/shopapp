@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
@@ -14,26 +15,31 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridTile(
-      footer: GridTileBar(
-        backgroundColor: Colors.black54,
-        leading: IconButton(
-          icon: const Icon(Icons.favorite),
-          onPressed: () {},
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: GridTile(
+        footer: GridTileBar(
+          backgroundColor: Colors.black87,
+          leading: IconButton(
+            icon: const Icon(Icons.favorite),
+            color: Theme.of(context).primaryColor,
+            onPressed: () {},
+          ),
+          title: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.white),
+          ),
+          trailing: IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            color: Theme.of(context).primaryColor,
+            onPressed: () {},
+          ),
         ),
-        title: Text(
-          title,
-          textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.white),
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
         ),
-        trailing: IconButton(
-          icon: const Icon(Icons.shopping_cart),
-          onPressed: () {},
-        ),
-      ),
-      child: Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
       ),
     );
   }
