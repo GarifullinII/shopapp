@@ -10,7 +10,7 @@ class ProductsOverviewScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('VC Shop'),
       ),
-      body: ProductsGrid(),
+      body: const ProductsGrid(),
     );
   }
 }
