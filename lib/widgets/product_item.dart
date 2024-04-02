@@ -1,39 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/product.dart';
 import '../screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imageUrl;
+  // final String id;
+  // final String title;
+  // final String imageUrl;
 
   const ProductItem({
-    required this.id,
-    required this.title,
-    required this.imageUrl,
+    // required this.id,
+    // required this.title,
+    // required this.imageUrl,
     super.key,
   });
 
-  void productDetail(BuildContext context) {
-    Navigator.of(context).pushNamed(
-      ProductDetailScreen.routeName,
-      arguments: id,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(
+      context,
+      listen: false,
+    );
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: IconButton(
-            icon: const Icon(Icons.favorite),
-            color: Theme.of(context).primaryColor,
-            onPressed: () {},
-          ),
+          leading: Consumer<Product>(
+              builder: (BuildContext context, Product product, Widget? _) {
+            return IconButton(
+              icon: Icon(
+                product.isFavorite ? Icons.favorite : Icons.favorite_border,
+              ),
+              onPressed: () {
+                product.toggleFavoriteStatus();
+              },
+            );
+          }),
           title: Text(
-            title,
+            product.title,
             textAlign: TextAlign.center,
             style: const TextStyle(color: Colors.white),
           ),
@@ -44,9 +50,12 @@ class ProductItem extends StatelessWidget {
           ),
         ),
         child: GestureDetector(
-          onTap: () => productDetail(context),
+          onTap: () => Navigator.of(context).pushNamed(
+            ProductDetailScreen.routeName,
+            arguments: product.id,
+          ),
           child: Image.network(
-            imageUrl,
+            product.imageUrl,
             fit: BoxFit.cover,
           ),
         ),
