@@ -19,7 +19,6 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(
       context,
-      listen: false,
     );
 
     return ClipRRect(

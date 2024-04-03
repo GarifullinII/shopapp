@@ -37,17 +37,35 @@ class ProductsProvider with ChangeNotifier {
     ),
   ];
 
+  // late bool _showFavoritesOnly = false;
+
   List<Product> get items {
+    // if (_showFavoritesOnly) {
+    //   return _items.where((productItem) => productItem.isFavorite).toList();
+    // }
     return [..._items];
+  }
+
+  List<Product>? get favoritesItem {
+    return _items.where((element) => element.isFavorite).toList();
   }
 
   Product fineById(String id) {
     return _items.firstWhere((product) => product.id == id);
   }
 
+  // void showFavoritesOnly() {
+  //   _showFavoritesOnly = true;
+  //   notifyListeners();
+  // }
+  //
+  // void showAll() {
+  //   _showFavoritesOnly = false;
+  //   notifyListeners();
+  // }
+
   void addProduct() {
     // _items.add(Product);
-
     notifyListeners();
   }
 }
