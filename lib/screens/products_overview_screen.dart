@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopapp/widgets/custom_badge.dart';
+import '../providers/cart.dart';
 import '../widgets/products_grid.dart';
 
 enum FilterOption { favorite, all }
@@ -39,6 +43,18 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 child: Text('Show all'),
               ),
             ],
+          ),
+          Consumer<Cart>(
+            builder: (BuildContext context, Cart cart, Widget? widget) {
+              return CustomBadge(
+                value: cart.itemCount.toString(),
+                child: widget!,
+              );
+            },
+            child: IconButton(
+              icon: const Icon(Icons.shopping_cart),
+              onPressed: () {},
+            ),
           ),
         ],
       ),

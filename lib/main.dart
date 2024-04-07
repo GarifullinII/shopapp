@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shopapp/providers/cart.dart';
 import 'package:shopapp/providers/products_provider.dart';
 import 'package:shopapp/screens/product_detail_screen.dart';
 import 'package:shopapp/screens/products_overview_screen.dart';
@@ -13,8 +14,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProductsProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ProductsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Cart(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -25,13 +33,14 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (context) => const ProductsOverviewScreen(),
-          ProductDetailScreen.routeName: (context) => const ProductDetailScreen(),
+          ProductDetailScreen.routeName: (context) =>
+              const ProductDetailScreen(),
         },
         onUnknownRoute: (settings) {
-          return MaterialPageRoute(builder: (ctx) => const ProductsOverviewScreen());
+          return MaterialPageRoute(
+              builder: (ctx) => const ProductsOverviewScreen());
         },
       ),
     );
   }
 }
-
