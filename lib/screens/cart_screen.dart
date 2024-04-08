@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shopapp/providers/cart.dart';
+import 'package:shopapp/widgets/cart_item.dart' as ci;
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -9,9 +12,14 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your cart'),
+        title: Text(
+          'Your cart',
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
       ),
       body: Column(
         children: [
@@ -37,12 +45,26 @@ class CartScreen extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {},
-                    child: const Text('ORDER NOW'),
+                    child: Text(
+                      'ORDER NOW',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ),
                 ],
               ),
             ),
-          )
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) => ci.CartItem(
+                id: cart.items.values.toList()[index].id,
+                title: cart.items.values.toList()[index].title,
+                quantity: cart.items.values.toList()[index].quantity,
+                price: cart.items.values.toList()[index].price,
+              ),
+              itemCount: cart.itemCount,
+            ),
+          ),
         ],
       ),
     );

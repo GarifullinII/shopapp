@@ -21,7 +21,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('VC Shop'),
+        title: Text(
+          'VC Shop',
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
         actions: [
           PopupMenuButton(
             onSelected: (FilterOption selectedValue) {
@@ -43,6 +46,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 child: Text('Show all'),
               ),
             ],
+            shadowColor: Theme.of(context).primaryColor,
           ),
           Consumer<Cart>(
             builder: (BuildContext context, Cart cart, Widget? widget) {

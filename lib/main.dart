@@ -27,10 +27,27 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
           primarySwatch: Colors.deepOrange,
-          primaryColor: Colors.deepOrangeAccent,
+          primaryColor: Colors.redAccent,
           fontFamily: 'Lato',
-          useMaterial3: true,
+          textTheme: const TextTheme(
+            bodyLarge: TextStyle(
+              color: Colors.deepOrangeAccent,
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+            ),
+            bodyMedium: TextStyle(
+              color: Colors.deepOrangeAccent,
+              fontWeight: FontWeight.w500,
+              fontSize: 12,
+            ),
+            bodySmall: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 10,
+            ),
+          ),
         ),
         routes: {
           '/': (context) => const ProductsOverviewScreen(),
