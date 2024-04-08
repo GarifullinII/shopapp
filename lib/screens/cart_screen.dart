@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shopapp/providers/cart.dart';
 import 'package:shopapp/widgets/cart_item.dart' as ci;
@@ -37,10 +35,11 @@ class CartScreen extends StatelessWidget {
                   Consumer<Cart>(
                     builder: (BuildContext context, Cart cart, Widget? widget) {
                       return Chip(
-                          label: Text(
-                            '\$${cart.totalAmount}',
-                          ),
-                          backgroundColor: Colors.white);
+                        label: Text(
+                          '\$${cart.totalAmount}',
+                        ),
+                        backgroundColor: Colors.white,
+                      );
                     },
                   ),
                   ElevatedButton(
@@ -58,6 +57,7 @@ class CartScreen extends StatelessWidget {
             child: ListView.builder(
               itemBuilder: (context, index) => ci.CartItem(
                 id: cart.items.values.toList()[index].id,
+                productId: cart.items.keys.toList()[index],
                 title: cart.items.values.toList()[index].title,
                 quantity: cart.items.values.toList()[index].quantity,
                 price: cart.items.values.toList()[index].price,
