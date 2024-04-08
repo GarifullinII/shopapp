@@ -9,7 +9,7 @@ class ProductsProvider with ChangeNotifier {
       description: 'A red shirt - it is pretty red!',
       price: 29.99,
       imageUrl:
-          'https://media.istockphoto.com/id/651223788/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D1%87%D0%B0%D1%81%D1%82%D0%BB%D0%B8%D0%B2%D1%8B%D0%B9-%D1%81%D0%BF%D0%BE%D1%80%D1%82%D1%81%D0%BC%D0%B5%D0%BD.jpg?s=1024x1024&w=is&k=20&c=P_JNLD_Nj-BSu3FXDNsHzgMBEnH5EreBM1sGFTYvvMY=',
+          'https://media.istockphoto.com/id/183866576/photo/female-portrait.webp?b=1&s=170667a&w=0&k=20&c=ZRV-tczqSs3e4HVPO6hA1wLv1qaxG7PI4_qR2WZgCVE=',
     ),
     Product(
       id: 'p2',
