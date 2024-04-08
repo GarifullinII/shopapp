@@ -32,9 +32,7 @@ class CustomBadge extends StatelessWidget {
             child: Text(
               value,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 10,
-              ),
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ),
         ),

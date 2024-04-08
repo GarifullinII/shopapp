@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopapp/widgets/custom_badge.dart';
 import '../providers/cart.dart';
 import '../widgets/products_grid.dart';
+import 'cart_screen.dart';
 
 enum FilterOption { favorite, all }
 
@@ -21,7 +21,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('VC Shop'),
+        title: Text(
+          'VC Shop',
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
         actions: [
           PopupMenuButton(
             onSelected: (FilterOption selectedValue) {
@@ -43,6 +46,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 child: Text('Show all'),
               ),
             ],
+            shadowColor: Theme.of(context).primaryColor,
           ),
           Consumer<Cart>(
             builder: (BuildContext context, Cart cart, Widget? widget) {
@@ -53,7 +57,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             },
             child: IconButton(
               icon: const Icon(Icons.shopping_cart),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.routeName);
+              },
             ),
           ),
         ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopapp/providers/cart.dart';
 import 'package:shopapp/providers/products_provider.dart';
+import 'package:shopapp/screens/cart_screen.dart';
 import 'package:shopapp/screens/product_detail_screen.dart';
 import 'package:shopapp/screens/products_overview_screen.dart';
 
@@ -26,15 +27,33 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
           primarySwatch: Colors.deepOrange,
-          primaryColor: Colors.deepOrangeAccent,
+          primaryColor: Colors.redAccent,
           fontFamily: 'Lato',
-          useMaterial3: true,
+          textTheme: const TextTheme(
+            bodyLarge: TextStyle(
+              color: Colors.deepOrangeAccent,
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+            ),
+            bodyMedium: TextStyle(
+              color: Colors.deepOrangeAccent,
+              fontWeight: FontWeight.w500,
+              fontSize: 12,
+            ),
+            bodySmall: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 10,
+            ),
+          ),
         ),
         routes: {
           '/': (context) => const ProductsOverviewScreen(),
           ProductDetailScreen.routeName: (context) =>
               const ProductDetailScreen(),
+          CartScreen.routeName: (context) => const CartScreen(),
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
