@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopapp/providers/cart.dart';
-import 'package:shopapp/widgets/cart_item.dart' as ci;
+import 'package:shopapp/providers/cart.dart' show Cart;
+import 'package:shopapp/providers/orders.dart';
+import 'package:shopapp/widgets/cart_item_widget.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -11,6 +12,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
+    final orders = Provider.of<Orders>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +45,13 @@ class CartScreen extends StatelessWidget {
                     },
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                     onPressed: () {
+                      orders.addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      cart.clear();
+                    },
                     child: Text(
                       'ORDER NOW',
                       style: Theme.of(context).textTheme.bodyMedium,
@@ -55,7 +63,7 @@ class CartScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemBuilder: (context, index) => ci.CartItem(
+              itemBuilder: (context, index) => CartItemWidget(
                 id: cart.items.values.toList()[index].id,
                 productId: cart.items.keys.toList()[index],
                 title: cart.items.values.toList()[index].title,
