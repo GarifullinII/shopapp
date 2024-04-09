@@ -38,7 +38,7 @@ class CartScreen extends StatelessWidget {
                     builder: (BuildContext context, Cart cart, Widget? widget) {
                       return Chip(
                         label: Text(
-                          '\$${cart.totalAmount}',
+                          '\$${cart.totalAmount.roundToDouble()}',
                         ),
                         backgroundColor: Colors.white,
                       );
