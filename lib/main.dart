@@ -37,6 +37,11 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.redAccent,
           fontFamily: 'Lato',
           textTheme: const TextTheme(
+            titleLarge: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+            ),
             bodyLarge: TextStyle(
               color: Colors.deepOrangeAccent,
               fontWeight: FontWeight.w500,

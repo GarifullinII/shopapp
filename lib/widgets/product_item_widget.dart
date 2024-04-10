@@ -4,12 +4,12 @@ import 'package:shopapp/providers/cart.dart';
 import '../providers/product.dart';
 import '../screens/product_detail_screen.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItemWidget extends StatelessWidget {
   // final String id;
   // final String title;
   // final String imageUrl;
 
-  const ProductItem({
+  const ProductItemWidget({
     // required this.id,
     // required this.title,
     // required this.imageUrl,
@@ -52,6 +52,24 @@ class ProductItem extends StatelessWidget {
             color: Theme.of(context).primaryColor,
             onPressed: () {
               cart.addItem(product.id, product.price, product.title);
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  duration: const Duration(seconds: 2),
+                  action: SnackBarAction(
+                    label: 'UNDO',
+                    onPressed: () {
+                      cart.removeSingleItem(product.id);
+                    },
+                  ),
+                  content: Text(
+                    'Added item to cart!',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+              );
             },
           ),
         ),
