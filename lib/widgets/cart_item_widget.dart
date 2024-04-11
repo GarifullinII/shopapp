@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shopapp/providers/cart.dart';
 
@@ -29,9 +31,17 @@ class CartItemWidget extends StatelessWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Are you sure?'),
-            content:
-                const Text('Do you want to remove the item from the cart?'),
+            actionsAlignment: MainAxisAlignment.center,
+            title: Text(
+              'Are you sure?',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            content: Text(
+              'Do you want to remove the item from the cart?',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
             actions: [
               TextButton(
                 onPressed: () {
