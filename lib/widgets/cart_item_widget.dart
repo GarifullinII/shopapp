@@ -82,7 +82,7 @@ class CartItemWidget extends StatelessWidget {
           vertical: 4,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(10),
           child: ListTile(
             leading: Padding(
               padding: const EdgeInsets.all(4),
