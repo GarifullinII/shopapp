@@ -4,6 +4,7 @@ import 'package:shopapp/providers/cart.dart';
 import 'package:shopapp/providers/orders.dart';
 import 'package:shopapp/providers/products_provider.dart';
 import 'package:shopapp/screens/cart_screen.dart';
+import 'package:shopapp/screens/edit_product_screen.dart';
 import 'package:shopapp/screens/orders_screen.dart';
 import 'package:shopapp/screens/product_detail_screen.dart';
 import 'package:shopapp/screens/products_overview_screen.dart';
@@ -67,6 +68,7 @@ class MyApp extends StatelessWidget {
           CartScreen.routeName: (context) => const CartScreen(),
           OrdersScreen.routeName: (context) => const OrdersScreen(),
           UserProductsScreen.routeName: (context) => const UserProductsScreen(),
+          EditProductScreen.routeName: (context) => const EditProductScreen(),
         },
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
