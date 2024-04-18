@@ -42,7 +42,7 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
           ),
           if (_expanded)
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 15),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
               height: min(
                 widget.order.products.length * 20 + 100,
                 100,
