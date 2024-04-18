@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shopapp/providers/product.dart';
+import 'package:shopapp/providers/products_provider.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = 'edit_product_screen';
@@ -42,15 +44,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
-      if ((!_imageUrlController.text.startsWith('http') &&
-              !_imageUrlController.text.startsWith('https')) ||
-          (!_imageUrlController.text.endsWith('.png') &&
-              !_imageUrlController.text.endsWith('.jpg') &&
-              !_imageUrlController.text.endsWith('.jpeg'))) {
-        return;
-      }
-      setState(() {});
+      return ;
+      // if ((!_imageUrlController.text.startsWith('http') &&
+      //         !_imageUrlController.text.startsWith('https')) ||
+      //     (!_imageUrlController.text.endsWith('.png') &&
+      //         !_imageUrlController.text.endsWith('.jpg') &&
+      //         !_imageUrlController.text.endsWith('.jpeg'))) {
+      //   return;
+      // }
+      // setState(() {});
     }
+    setState(() {});
   }
 
   void _saveForm() {
@@ -59,6 +63,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     _form.currentState!.save();
+    Provider.of<ProductsProvider>(context, listen: false)
+        .addProduct(_editedProduct);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -220,11 +227,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             !value.startsWith('https')) {
                           return 'Please enter a valid URL';
                         }
-                        if (!value.endsWith('.png') &&
-                            !value.endsWith('.jpg') &&
-                            !value.endsWith('.jpeg')) {
-                          return 'Please enter a valid image URL';
-                        }
+                        // if (!value.endsWith('.png') &&
+                        //     !value.endsWith('.jpg') &&
+                        //     !value.endsWith('.jpeg')) {
+                        //   return 'Please enter a valid image URL';
+                        // }
                         return null;
                       },
                     ),
