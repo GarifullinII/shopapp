@@ -51,7 +51,7 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Product fineById(String id) {
-    return _items.firstWhere((product) => product.id == id);
+    return _items.firstWhere((product) => product.id == id,);
   }
 
   // void showFavoritesOnly() {

@@ -19,7 +19,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
   late Product _editedProduct = Product(
-    id: '',
+    id: DateTime.now().toString(),
     title: '',
     description: '',
     price: 0,
@@ -71,7 +71,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
     _form.currentState!.save();
     if (_editedProduct.id != null) {
-      Provider.of<ProductsProvider>(context, listen: false).updateProduct(_editedProduct.id, _editedProduct);
+      Provider.of<ProductsProvider>(context, listen: false)
+          .updateProduct(_editedProduct.id ?? '', _editedProduct);
     } else {
       Provider.of<ProductsProvider>(context, listen: false)
           .addProduct(_editedProduct);
@@ -83,19 +84,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
   void didChangeDependencies() {
     if (_isInit) {
       final productId = ModalRoute.of(context)?.settings.arguments as String;
-      if (productId != null) {
-        _editedProduct = Provider.of<ProductsProvider>(context, listen: false)
-            .fineById(productId);
-        _initValues = {
-          'title': _editedProduct.title,
-          'description': _editedProduct.description,
-          'price': _editedProduct.price.toString(),
-          // 'imageUrl': _editedProduct.imageUrl,
-          'imageUrl': null,
-        };
-        _imageUrlController.text = _editedProduct.imageUrl;
-      }
-    }
+      _editedProduct = Provider.of<ProductsProvider>(context, listen: false)
+          .fineById(productId);
+      _initValues = {
+        'title': _editedProduct.title,
+        'description': _editedProduct.description,
+        'price': _editedProduct.price.toString(),
+        // 'imageUrl': _editedProduct.imageUrl,
+        'imageUrl': null,
+      };
+      _imageUrlController.text = _editedProduct.imageUrl;
+        }
     _isInit = false;
     super.didChangeDependencies();
   }
