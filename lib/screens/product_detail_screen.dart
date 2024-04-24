@@ -9,16 +9,16 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context)?.settings.arguments as String;
+    final String? productId = ModalRoute.of(context)?.settings.arguments as String?;
     final loadedProduct = Provider.of<ProductsProvider>(
       context,
       listen: false,
-    ).fineById(productId);
+    ).fineById(productId ?? '');
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          loadedProduct.title,
+          loadedProduct.title ?? 'No title',
           style: Theme.of(context).textTheme.bodyLarge,
         ),
       ),
@@ -29,7 +29,7 @@ class ProductDetailScreen extends StatelessWidget {
               height: 300,
               width: double.infinity,
               child: Image.network(
-                loadedProduct.imageUrl,
+                loadedProduct.imageUrl ?? 'No image',
                 fit: BoxFit.cover,
               ),
             ),
@@ -44,7 +44,7 @@ class ProductDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               child: Text(
-                loadedProduct.description,
+                loadedProduct.description ?? 'No description',
                 textAlign: TextAlign.center,
                 softWrap: true,
                 style: Theme.of(context).textTheme.bodyLarge,

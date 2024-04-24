@@ -43,7 +43,7 @@ class ProductItemWidget extends StatelessWidget {
             );
           }),
           title: Text(
-            product.title,
+            product.title ?? 'No title',
             textAlign: TextAlign.center,
             style: const TextStyle(color: Colors.white),
           ),
@@ -51,7 +51,11 @@ class ProductItemWidget extends StatelessWidget {
             icon: const Icon(Icons.shopping_cart),
             color: Theme.of(context).primaryColor,
             onPressed: () {
-              cart.addItem(product.id ?? '', product.price, product.title);
+              cart.addItem(
+                product.id ?? '',
+                product.price ?? 0,
+                product.title ?? 'No title',
+              );
               ScaffoldMessenger.of(context).hideCurrentSnackBar();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -79,7 +83,7 @@ class ProductItemWidget extends StatelessWidget {
             arguments: product.id,
           ),
           child: Image.network(
-            product.imageUrl,
+            product.imageUrl ?? 'No image',
             fit: BoxFit.cover,
           ),
         ),

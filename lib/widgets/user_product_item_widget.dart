@@ -4,9 +4,9 @@ import 'package:shopapp/providers/products_provider.dart';
 import 'package:shopapp/screens/edit_product_screen.dart';
 
 class UserProductItemWidget extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imageUrl;
+  final String? id;
+  final String? title;
+  final String? imageUrl;
 
   const UserProductItemWidget({
     required this.id,
@@ -19,11 +19,11 @@ class UserProductItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        title,
+        title ?? 'No title',
         style: Theme.of(context).textTheme.bodyLarge,
       ),
       leading: CircleAvatar(
-        backgroundImage: NetworkImage(imageUrl),
+        backgroundImage: NetworkImage(imageUrl ?? 'No image'),
       ),
       trailing: SizedBox(
         width: 100,
@@ -44,7 +44,7 @@ class UserProductItemWidget extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Provider.of<ProductsProvider>(context, listen: false)
-                    .deleteProduct(id);
+                    .deleteProduct(id ?? '');
               },
               icon: Icon(
                 Icons.delete,

@@ -19,7 +19,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
   late Product _editedProduct = Product(
-    id: DateTime.now().toString(),
+    id: '',
     title: '',
     description: '',
     price: 0,
@@ -65,11 +65,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
   }
 
   void _saveForm() {
-    final isValid = _form.currentState!.validate();
-    if (!isValid) {
+    final isValid = _form.currentState?.validate();
+    if (!isValid!) {
       return;
     }
-    _form.currentState!.save();
+    _form.currentState?.save();
     if (_editedProduct.id != null) {
       Provider.of<ProductsProvider>(context, listen: false)
           .updateProduct(_editedProduct.id ?? '', _editedProduct);
@@ -93,7 +93,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         // 'imageUrl': _editedProduct.imageUrl,
         'imageUrl': null,
       };
-      _imageUrlController.text = _editedProduct.imageUrl;
+      _imageUrlController.text = _editedProduct.imageUrl ?? 'No image';
         }
     _isInit = false;
     super.didChangeDependencies();
