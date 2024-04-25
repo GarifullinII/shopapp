@@ -4,7 +4,7 @@ import 'package:shopapp/providers/product.dart';
 import 'package:shopapp/providers/products_provider.dart';
 
 class EditProductScreen extends StatefulWidget {
-  static const routeName = 'edit_product_screen';
+  static const routeName = '/edit_product';
 
   const EditProductScreen({super.key});
 
@@ -18,25 +18,46 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlController = TextEditingController();
   final _imageUrlFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
-  late Product _editedProduct = Product(
-    id: '',
+  Product _editedProduct = Product(
+    id: null,
     title: '',
     description: '',
     price: 0,
     imageUrl: '',
   );
-  bool _isInit = true;
-  late Map<String, dynamic> _initValues = {
+  Map<String, dynamic> _initValues = {
     'title': '',
     'description': '',
     'price': '',
     'imageUrl': '',
   };
+  bool _isInit = true;
 
   @override
   void initState() {
     _imageUrlFocusNode.addListener(_updateImageUrl);
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      final productId = ModalRoute.of(context)?.settings.arguments as String;
+      if (productId != null) {
+        _editedProduct = Provider.of<ProductsProvider>(context, listen: false)
+            .fineById(productId);
+        _initValues = {
+          'title': _editedProduct.title,
+          'description': _editedProduct.description,
+          'price': _editedProduct.price.toString(),
+          // 'imageUrl': _editedProduct.imageUrl,
+          'imageUrl': '',
+        };
+        _imageUrlController.text = _editedProduct.imageUrl ?? 'No image';
+      }
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 
   @override
@@ -51,17 +72,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
-      return;
-      // if ((!_imageUrlController.text.startsWith('http') &&
-      //         !_imageUrlController.text.startsWith('https')) ||
-      //     (!_imageUrlController.text.endsWith('.png') &&
-      //         !_imageUrlController.text.endsWith('.jpg') &&
-      //         !_imageUrlController.text.endsWith('.jpeg'))) {
-      //   return;
-      // }
-      // setState(() {});
+      if ((!_imageUrlController.text.startsWith('http') &&
+              !_imageUrlController.text.startsWith('https')) ||
+          (!_imageUrlController.text.endsWith('.png') &&
+              !_imageUrlController.text.endsWith('.jpg') &&
+              !_imageUrlController.text.endsWith('.jpeg'))) {
+        return;
+      }
+      setState(() {});
     }
-    setState(() {});
   }
 
   void _saveForm() {
@@ -78,25 +97,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
           .addProduct(_editedProduct);
     }
     Navigator.of(context).pop();
-  }
-
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      final productId = ModalRoute.of(context)?.settings.arguments as String;
-      _editedProduct = Provider.of<ProductsProvider>(context, listen: false)
-          .fineById(productId);
-      _initValues = {
-        'title': _editedProduct.title,
-        'description': _editedProduct.description,
-        'price': _editedProduct.price.toString(),
-        // 'imageUrl': _editedProduct.imageUrl,
-        'imageUrl': null,
-      };
-      _imageUrlController.text = _editedProduct.imageUrl ?? 'No image';
-        }
-    _isInit = false;
-    super.didChangeDependencies();
   }
 
   @override
@@ -230,13 +230,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     child: _imageUrlController.text.isEmpty
                         ? const Text('Enter a URL')
                         : FittedBox(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             child: Image.network(_imageUrlController.text),
                           ),
                   ),
                   Expanded(
                     child: TextFormField(
-                      initialValue: _initValues['imageUrl'],
                       decoration: InputDecoration(
                         labelText: 'Image URL',
                         labelStyle: Theme.of(context).textTheme.bodyLarge,
@@ -266,11 +265,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             !value.startsWith('https')) {
                           return 'Please enter a valid URL';
                         }
-                        // if (!value.endsWith('.png') &&
-                        //     !value.endsWith('.jpg') &&
-                        //     !value.endsWith('.jpeg')) {
-                        //   return 'Please enter a valid image URL';
-                        // }
+                        if (!value.endsWith('.png') &&
+                            !value.endsWith('.jpg') &&
+                            !value.endsWith('.jpeg')) {
+                          return 'Please enter a valid image URL';
+                        }
                         return null;
                       },
                     ),
