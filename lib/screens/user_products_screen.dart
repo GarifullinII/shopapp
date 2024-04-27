@@ -5,8 +5,6 @@ import 'package:shopapp/widgets/app_drawer_widget.dart';
 import 'package:shopapp/widgets/user_product_item_widget.dart';
 import 'package:shopapp/screens/edit_product_screen.dart';
 
-import '../providers/product.dart';
-
 class UserProductsScreen extends StatelessWidget {
   static const routeName = '/user_products';
   const UserProductsScreen({super.key});
