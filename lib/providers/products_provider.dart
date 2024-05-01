@@ -71,7 +71,7 @@ class ProductsProvider with ChangeNotifier {
   Future<void> addProduct(Product product) async {
     final url = Uri.https(
         'shop-3e940-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/products.json');
+        '/');
     return http
         .post(
       url,
@@ -98,7 +98,9 @@ class ProductsProvider with ChangeNotifier {
         _items.add(newProduct);
         notifyListeners();
       },
-    );
+    ).catchError((error) {
+      throw error;
+    });
   }
 
   void updateProduct(String id, Product newProduct) {
