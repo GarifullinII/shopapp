@@ -100,13 +100,28 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  void updateProduct(String id, Product newProduct) {
+  Future<void> updateProduct(String id, Product newProduct) async {
     final productIndex = _items.indexWhere((prod) => prod.id == id);
-    if (productIndex >= 0) {
-      _items[productIndex] = newProduct;
-      notifyListeners();
-    } else {
-      print('...');
+    try {
+      if (productIndex >= 0) {
+        final url = Uri.https(
+          'shop-3e940-default-rtdb.asia-southeast1.firebasedatabase.app',
+          '/products/$id.json',
+        );
+        await http.patch(url,
+            body: json.encode({
+              'price': newProduct.price,
+              'title': newProduct.title,
+              'description': newProduct.description,
+              'imageUrl': newProduct.imageUrl,
+            }));
+        _items[productIndex] = newProduct;
+        notifyListeners();
+      } else {
+        print('...');
+      }
+    } catch (error) {
+      throw error;
     }
   }
 
